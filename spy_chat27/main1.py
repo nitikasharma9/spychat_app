@@ -89,24 +89,24 @@ def select_a_friend():                                                         #
     return friend_choice_position                                             # return the index position of friend selected
 
 
-def send_message():                                                 #function to select a friend whom we need to send a message
+def send_message():                                                 # Here we defining the send_message function..which basically selects the friend & sending the secret message in form of text in a image..
 
     friend_choice = select_a_friend()
 
-    original_image = raw_input(colored("Please Enter the name of the image?",'blue'))  # hide secret text using steganography library
-    output_path = "output.jpg"
-    text = raw_input(colored("Please enter the message you want to convey? ",'blue'))
-    Steganography.encode(original_image, output_path, text)
+    original_image = raw_input(colored("Please Enter the name of the image?",'blue'))  # Name of the image in which u wanna to hide the text..
+    output_path = "output.jpg"                                                         # Output path or name which is basically totally different from initial original image .and format changes here ..
+    text = raw_input(colored("What's the secret message u wan't to Convey? ",'blue'))  # Secret text u wanna to hide in that image ..
+    Steganography.encode(original_image, output_path, text)                            # Encoding the text in image via function..
 
     temp = text.split(' ')
-    for i in special:                   #function to show a special message for special words like sos
+    for i in special:
         if i in temp:
-            temp[temp.index(i)] = colored('Please Help Me !! I Am in Danger..','red')
+            temp[temp.index(i)] = colored('Please Help Me !! I Am in Danger..','red')  # Replacing special words with a special type of emergency message ...
     text = str.join(' ',temp)
-    friends[friend_choice].chats_avg[0] = (friends[friend_choice].chats_avg[0] + len(temp)) / ( len(friends[friend_choice].chats) + 1)
+    friends[friend_choice].chats_avg[0] = (friends[friend_choice].chats_avg[0] + len(temp))/(len(friends[friend_choice].chats)+1)
     new_chat = ChatMessage(text,True)
 
-    friends[friend_choice].chats.append(new_chat)
+    friends[friend_choice].chats.append(new_chat)                                      # Appending the secret code in the chat list of that particular friend-->
 
     print colored("Your secret message in the image is ready!",'green')
 

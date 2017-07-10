@@ -9,6 +9,7 @@ class Spy:
         self.rating = rating
         self.is_online = True
         self.chats = []
+        self.chats_avg = [0, 0]
         self.current_status_message = None
 
 
