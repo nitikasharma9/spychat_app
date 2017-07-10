@@ -26,6 +26,7 @@ def add_status():
 
     if default.upper() == "N":                #if user choose to write a new status message
         new_status_message = raw_input(colored("Write the status message you want to set? ",'blue'))
+
         if len(new_status_message) > 0:                               # Check whether status input is empty or not....
             status_messages.append(new_status_message)                  #input new status will be added at the end of the status list with the help of append function
             updated_status_message = new_status_message
@@ -102,6 +103,7 @@ def send_message():                                                 #function to
         if i in temp:
             temp[temp.index(i)] = colored('Please Help Me !! I Am in Danger..','red')
     text = str.join(' ',temp)
+    friends[friend_choice].chats_avg[0] = (friends[friend_choice].chats_avg[0] + len(temp)) / ( len(friends[friend_choice].chats) + 1)
     new_chat = ChatMessage(text,True)
 
     friends[friend_choice].chats.append(new_chat)
@@ -120,6 +122,7 @@ def read_message():                               #function to read a secret cha
     except ValueError:
         print colored("NO message",'red')
         exit()
+
     secret_text = str(secret_text)
     if secret_text == 'None':
         print colored("No secret message is coded in the image!!",'red')         # error handling case if input secret text is none
@@ -129,9 +132,11 @@ def read_message():                               #function to read a secret cha
             if i in temp:
                 temp[temp.index(i)] = colored('Please Help Me,I am in Danger!!','red')
         secret_text = str.join(' ',temp)
+
         if len(secret_text)>100:                                                     # Handling special case where friend is annoying u by sending a long text message
             print colored("One of your friend is annoying you ,Do u Want to Delete him or her From your Friend lists.",'red')
             choice = raw_input(colored("If u want to Delete ur friend choose: 'Y' , If not choose: 'N' ",'blue'))
+
             if choice == "Y":
                 del [sender]                              # That particular friend is deleted from the friend lists..
                 print colored("Friend which is annoying you is deleted from the list",'green')
@@ -214,7 +219,14 @@ else:
 
         spy.rating = raw_input(colored("What is your spy rating?",'blue'))
         spy.rating = float(spy.rating)      # Converts the rating into float .bcz Raw_input returns string type .
-
+        if spy.rating > 4.5:
+            print 'Great ace!'
+        elif spy.rating > 3.5 and spy.rating <= 4.5:
+              print 'You are one of the good ones.'
+        elif spy.rating >= 2.5 and spy.rating <= 3.5:
+              print 'You can always do better'
+        else:
+              print 'We can always use somebody to help in the office.'
         start_chat(spy)
     else:
         print colored('You must have to enter a valid spy name','red')     # User Must have to fill valid name
